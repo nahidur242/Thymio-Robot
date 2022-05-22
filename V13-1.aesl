@@ -1,0 +1,121 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<constant name="off" value="0"/>
+<constant name="on" value="1"/>
+
+
+<!--node Rob1 on Nahidurs-Laptop - 11140-->
+<node name="Rob1 on Nahidurs-Laptop - 11140" nodeId="{168bf32b-0aa8-475f-b66b-08541542ee9f}"><![CDATA[var robotrun
+
+#following black line----------------
+
+onevent prox 
+	if  robotrun == on then
+		
+	
+	if  prox.ground.reflected[0] < 200 or
+		prox.ground.reflected[1] < 250 then
+		 motor.right.target = 300
+		 motor.left.target = 150
+		 callsub lightsELSE
+	else
+		 motor.right.target = 150
+		 motor.left.target = 300
+		 callsub lightsIF
+	end
+	end
+
+
+#noticing obstacles---------------
+
+	if  prox.horizontal[0] > 4000 then
+		callsub lightsIF
+ 		callsub right 
+  	else
+		 callsub lightsELSE
+		 
+ 		
+	if  prox.horizontal[1] > 4000 then
+		callsub lightsIF
+ 		callsub right 
+  	else
+		 callsub lightsELSE
+		 
+ 		
+	if  prox.horizontal[2] > 4000 then
+		callsub lightsIF
+ 		callsub right 
+  	else
+		 callsub lightsELSE
+		 
+ 		
+	if  prox.horizontal[3] > 4000 then
+		callsub lightsIF
+ 		callsub right 
+  	else
+		 callsub lightsELSE
+		 
+ 		
+	if  prox.horizontal[4] > 4000 then
+		callsub lightsIF
+ 		callsub right 
+  	else
+		 callsub lightsELSE
+ 	
+ 		
+ 	end
+	end
+	end
+	end
+	end
+
+#button---------------------------
+
+onevent button.center
+	if button.center == on then
+	   callsub toggleswitch
+	end		 
+	
+#subroutines----------------------
+
+sub right
+		motor.left.target = -500
+		motor.right.target = 500
+		
+		
+sub lightsIF
+		call leds.top(255,0,0)
+		call leds.bottom.left(255,0,0)
+		call leds.bottom.right(255,0,0)
+	
+sub lightsELSE
+		 call leds.top(0,0,255)
+		 call leds.bottom.left(0,0,255)
+		 call leds.bottom.right(0,0,255)
+		 
+
+sub stop
+	motor.left.target = 0
+	motor.right.target = 0
+
+sub ledtoggle
+		 call leds.top(0,0,150)
+		 call leds.bottom.left(0,0,150)
+		 call leds.bottom.right(0,0,150)
+
+sub toggleswitch
+	if  robotrun == on  then
+		robotrun = off
+	callsub stop
+	callsub ledtoggle
+	else
+		robotrun = on
+	end
+		
+		]]></node>
+
+
+</network>
